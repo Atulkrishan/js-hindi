@@ -1,2 +1,2 @@
-# js-hindi
-a code repo for javascript series
+# js-notes
+A code repo for javascript series
