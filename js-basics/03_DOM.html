@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM</title>
+  </head>
+  <body style="background-color: #212121; color: white">
+    <ul class="parent">
+      <li class="item">Golang (1%)</li>
+      <li class="item">C++ (15%)</li>
+      <li class="item">JavaScript (20%)</li>
+      <li class="item">Python (30%)</li>
+    </ul>
+  </body>
+  <script>
+    function addLanguage(language) {
+      const parent = document.querySelector(".parent");
+
+      const newli = document.createElement("li");
+      newli.appendChild(document.createTextNode(`${language}`));
+      parent.appendChild(newli);
+    }
+    addLanguage("Java (9%)");
+    addLanguage("PHP (3%)");
+    addLanguage("Go (1.5%)");
+
+    const parent = document.querySelector(".parent");
+    document.querySelector("li:nth-child(1)").remove();
+
+    const secondLi = document.querySelector("li:nth-child(2)");
+    console.log(secondLi);
+    secondLi.innerText = `C# (2%)`;
+
+    const div1 = document.createElement("div");
+    div1.setAttribute("id", "div1");
+
+    div1.innerText = "Hello I am a Div";
+    div1.style.backgroundColor = "yellow";
+    div1.style.color = "green";
+    div1.style.padding = "10px";
+    div1.style.width = "100px";
+    div1.style.margin = "5px";
+    div1.style.border = "2px solid red";
+    div1.style.borderRadius = "50%";
+    const body = document.querySelector("body");
+    body.appendChild(div1);
+
+    console.log(parent.childNodes);
+    console.log(parent.lastElementChild);
+
+    const day1 = document.querySelector(".day");
+    console.log(day1.parentElement);
+    console.log(day1.nextElementSibling);
+  </script>
+</html>
