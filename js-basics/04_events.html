@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Events</title>
+  </head>
+  <body style="background-color: #1f1f1f">
+    <h2 style="color: white">Images</h2>
+    <ul>
+      <li class="img1" style="margin: 10px">
+        <img
+          src="./nature1.jpg"
+          style="border: 2px solid white"
+          height="100"
+          width="200"
+          alt=""
+        />
+      </li>
+      <li class="img2" style="margin: 10px">
+        <img
+          src="./nature1.jpg"
+          style="border: 2px solid white"
+          height="100"
+          width="200"
+          alt=""
+        />
+      </li>
+      <li class="img3" style="margin: 10px">
+        <img
+          src="./nature1.jpg"
+          style="border: 2px solid white"
+          height="100"
+          width="200"
+          alt=""
+        />
+      </li>
+      <li class="img4" style="margin: 10px">
+        <img
+          src="./nature1.jpg"
+          style="border: 2px solid white"
+          height="100"
+          width="200"
+          alt=""
+        />
+      </li>
+      <li class="img5" style="margin: 10px">
+        <img
+          src="./nature1.jpg"
+          style="border: 2px solid white"
+          height="100"
+          width="200"
+          alt=""
+        />
+      </li>
+      <li>
+        <a
+          href="https://www.google.com/search?q=india+national+cricket+team+vs+england+cricket+team+match+scorecard&sxsrf=AE3TifMTLgeKxcoioo2FFQDWwkERNQEsPw%3A1750506147059#sie=m;/g/11wbg_dqb2;5;/m/021q23;cms;fp;1;;;"
+          target="_blank"
+          >Google
+        </a>
+      </li>
+    </ul>
+  </body>
+  <script>
+    const image = document.querySelector(".img1");
+    image.addEventListener(
+      "click",
+      function (event) {
+        event.stopPropagation();
+        console.log("Owl clicked");
+      },
+      false
+    );
+    const ulinfo = document.querySelector("ul");
+    ulinfo.addEventListener(
+      "click",
+      function (event) {
+        console.log("UL clicked");
+      },
+      false
+    );
+    const google = document.querySelector("a");
+    google.addEventListener("click", function (event) {
+      event.preventDefault();
+      console.log("Google clicked");
+    });
+
+    const images = document.querySelector("ul");
+    images.addEventListener("click", function (event) {
+      console.log(event, event.target.parentNode);
+      if (event.target.tagName === "IMG") {
+        event.target.parentNode.remove();
+      }
+    });
+  </script>
+</html>
