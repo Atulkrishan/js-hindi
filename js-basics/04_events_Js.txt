@@ -1,0 +1,68 @@
+Events in Js
+
+>> In javascript all events are run sequentially... events are invoked on activity of the user 
+
+using onclick in html is bad practice....
+
+and second approach
+>> applying onclick after selecting the element can also cause problems 
+document.querySelector("")
+
+Third approach
+....Event Listeners.....
+
+type,timestamp,defaultPrevented,anchor,target,toelement,sourceelement
+
+Event Propagation...
+
+1.Event bubbling 
+2.Event capturing
+
+img1 inside the ul
+
+const image = document.querySelector(".img1");
+    image.addEventListener( "click", function (event) { 
+      console.log("Owl clicked"); 
+    }, false );
+
+const ulinfo = document.querySelector("ul");
+    ulinfo.addEventListener("click", function (event) {
+      console.log("UL clicked");
+    },false);
+
+>> false is event bubbling is true ie inside element pass the event to parent
+>> while true enables event bubbling
+
+How to stop Propagation ?
+event.stopPropagation() inside the child element... if bubbling is happening ...
+
+How to prevent default behaviour..
+
+const google = document.querySelector("a");
+    google.addEventListener("click", function (event) {
+      event.preventDefault();
+      console.log("Google clicked");
+    });
+
+Methods of events..
+
+1.event.target
+returns the element on which event occur 
+
+2. event.target.parentNode
+gives parent element of child.....
+
+3. event.target.tagName
+gives the tagname of the element
+
+Examples
+
+Remove the list item on clicking the img inside the list 
+
+const images = document.querySelector("ul");
+images.addEventListener("click", function (event) {
+      console.log(event, event.target.parentNode);
+      if (event.target.tagName === "IMG") {
+        event.target.parentNode.remove();
+      }
+});
