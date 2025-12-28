@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bind in Js</title>
+</head>
+<body>
+    <button>Click Me</button>
+</body>
+<script>
+    class React{
+        constructor(lib,server){
+            this.lib = 'React';
+            this.server = 'https : // local:host:3000'
+            document.querySelector('button').addEventListener('click',this.handleClick.bind(this));
+        }
+        // requirement 
+        // page loading leads to creation of an object and which leads to some action
+        // like give reference of button and log something to console
+
+        handleClick(){
+            console.log('Button clicked');
+            console.log(this);
+            console.log(this.server);
+        }
+        // Button clicked
+        // <button>​Click Me ​</button>​ 
+        // undefined
+
+        //  Button clicked
+        //  React {lib: 'React', server: 'https : // local:host:3000'}
+        //  https : // local:host:3000
+    }
+    const app = new React();
+</script>
+</html>
