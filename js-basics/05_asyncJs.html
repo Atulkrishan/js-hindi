@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Async Js</title>
+    <style>
+        h1{
+            color : red;
+            border : 2px solid black;
+            background-color: yellow;
+        }
+        button{
+            color : black;
+            height : 30px;
+            border : 12x solid black;
+            background-color:orangered;
+            width : 70px;
+        }
+        button:hover{
+            background-color:yellow;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+            Chai aur Code
+    </h1>
+    <div>
+        <button id = "start">Start</button>
+        <button id = "stop">
+            Stop
+        </button>
+    </div>
+</body>
+</html>
+<script>
+    const h1 = document.querySelector('h1');
+    let timeInterval = undefined;
+    document.querySelector('#start').addEventListener('click',function(){
+        timeInterval = setInterval(function(){
+            let d1 = new Date();
+            h1.innerText = d1.toLocaleString();
+            console.log(d1.getDay());
+        },500);
+    },false);
+    
+    document.querySelector('#stop').addEventListener('click',function(){
+        clearInterval(timeInterval);
+    },false);
+
+</script>
