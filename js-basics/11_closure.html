@@ -25,7 +25,9 @@
             console.log(name);
         }
         return inner;
-        // whole lexical scope (along with name) it returened..
+         // only the variables that inner uses (name) are returened along with function..
+        // means a closure is returned...
+        // A closure captures only the variables it needs, not the entire outer function.
     }
     const myfun = outer();
     // myfun();
