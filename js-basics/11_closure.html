@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Closure</title>
+</head>
+<body>
+    <button id="bt1">Orange</button>
+    <button id="bt2">Green</button>
+</body>
+<script>
+    function outer(){
+        let name = "Karan";
+        function inner(){
+            console.log(name);
+        }
+        return inner;
+        // whole lexical scope (along with name) it returened..
+    }
+    const myfun = outer();
+    // myfun();
+</script>
+<script>
+    document.querySelector('#bt1').onclick = function(){
+        document.body.style.backgroundColor = 'orange';
+    } 
+    document.querySelector('#bt2').onclick = function(){
+        document.body.style.backgroundColor = 'green';
+    } 
+
+    // Practical Example...
+    function clickHandler(color){
+        // posiible due to clousure 
+        function inner(){
+            document.body.style.backgroundColor = color;
+        } 
+        return inner;
+    }
+    document.querySelector('#bt1').onclick = clickHandler('orange');
+    document.querySelector('#bt2').onclick = clickHandler('green');
+</script>
+</html> 
