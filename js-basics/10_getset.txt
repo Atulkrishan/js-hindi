@@ -1,0 +1,222 @@
+1️⃣ What REALLY happens in a class  
+class User {  
+  constructor(email, password) {  
+    this.email = email;  
+    this.password = password; // ✅ setter is called  
+  }  
+
+  get password() {  
+    return this._password.toUpperCase();  
+  }  
+
+  set password(val) {  
+    this._password = val;  
+  }  
+}  
+
+🔍 Execution Order  
+
+1. JS creates User.prototype  
+2. get password & set password are placed on prototype  
+3. constructor() runs  
+4. this.password = password:  
+   -  JS checks this → no password  
+   -  Checks prototype → setter found  
+   -  👉 setter runs  
+
+✔ Output  
+
+code  
+
+A1ABC923  
+
+🔑 Key Rule  
+
+In class, getters/setters exist before object creation, so assignments inside constructor always hit the setter.  
+
+────────────────────────  
+
+2️⃣ Why constructor assignment is NOT “overridden”  
+
+js  
+
+this.password = password;  
+
+❌ This line is not ignored  
+❌ It is not overridden  
+
+✔ It calls the setter  
+
+js  
+
+set password(val) {  
+  this._password = val;  
+}  
+
+Internal Translation  
+
+js  
+
+this._password = password;  
+
+────────────────────────  
+
+3️⃣ Where class accessors live  
+
+js  
+
+User.prototype = {  
+  get password() {},  
+  set password() {}  
+}  
+
+👉 They are NOT on the instance  
+
+────────────────────────  
+
+4️⃣ What happens with Object.defineProperty  
+
+❌ WRONG ORDER  
+
+js  
+
+function Student(name) {  
+  this.name = name; // ❌ no setter yet  
+
+  Object.defineProperty(this, 'name', {  
+    get() { return `${this._name} Kumar`; },  
+    set(val) { this._name = val; }  
+  });  
+}  
+
+What happens?  
+
+-  this.name = name creates a data property  
+-  No setter exists → setter NOT called  
+-  Later defineProperty replaces property  
+-  _name is never set  
+
+Result    
+
+undefined Kumar  
+
+────────────────────────  
+
+5️⃣ ✅ CORRECT ORDER (Your final code)  
+
+js  
+
+function Student(name, className) {  
+  this.className = className;  
+
+  Object.defineProperty(this, 'name', {  
+    get() {  
+      return `${this._name} Kumar`;  
+    },  
+    set(val) {  
+      this._name = val;  
+    }  
+  });  
+
+  this.name = name; // ✅ setter is called  
+}  
+
+Output  
+
+code  
+
+Raman Kumar Raman  
+
+6️⃣ Why setter IS called here  
+
+js  
+
+this.name = name;  
+
+At this moment:  
+
+-  name has a setter  
+-  JS finds it  
+-  Calls setter  
+-  _name is set  
+
+────────────────────────  
+
+7️⃣ Important Rule (MOST IMPORTANT)  
+
+A setter is called ONLY if it exists at the time of assignment  
+
+Case | Setter Exists? | Setter Called?  
+--- | --- | ---  
+Assignment before defineProperty | ❌ No | ❌ No  
+Assignment after defineProperty | ✅ Yes | ✅ Yes  
+class constructor assignment | ✅ Yes | ✅ Yes  
+
+────────────────────────  
+
+8️⃣ Getter/Setter lookup order  
+
+When JS executes:  
+
+js  
+
+obj.prop = value;  
+
+JS checks:  
+
+1. Own property setter?  
+2. Prototype setter?  
+3. Else → create normal property  
+
+────────────────────────  
+
+9️⃣ Why this works in class but not function  
+
+Feature | class | defineProperty  
+--- | --- | ---  
+Accessor location | Prototype | Instance  
+Exists before constructor | ✅ Yes | ❌ No  
+Order sensitive | ❌ No | ✅ Yes  
+
+────────────────────────  
+
+1️⃣0 Data Property vs Accessor Property  
+
+Data property  
+
+js  
+
+{ value: "Raman", writable: true }  
+
+Accessor property  
+
+js  
+
+{ get: f, set: f }  
+
+❗ You cannot have both on the same property  
+
+1️⃣1 Why value is lost when redefining  
+
+js  
+
+this.name = "Raman";  
+
+Object.defineProperty(this, 'name', { get, set });  
+
+👉 Old value is discarded  
+👉 JS does NOT migrate data to _name  
+
+Common Traps  
+
+❌ Expecting setter to run after redefining  
+❌ Assigning before accessor exists  
+❌ Forgetting backing field (_name)  
+❌ Thinking constructor assignment is skipped  
+
+ Interview One-liners   
+
+-  “Setters run only if they exist at assignment time.”  
+-  “Class accessors live on the prototype.”  
+-  “Object.defineProperty is order-dependent.”  
+-  “Redefining a property deletes old data.”
