@@ -1,0 +1,45 @@
+// Step 1: Create a new XMLHttpRequest object
+
+let xhr = new XMLHttpRequest();
+
+// Step 2: Prepare the request using the open() method
+
+// Syntax: open(method, URL, asynchronous?)
+
+// This is a GET request to "data.json" and it's asynchronous (true)
+xhr.open("GET", "data.json", true);
+
+// Step 3: Define what to do when the readyState changes
+
+xhr.onreadystatechange = function () {
+         
+  // Step 4: Check if the request is complete (readyState = 4)
+// and the response was successful (status = 200)
+  if (xhr.readyState === 4 && xhr.status === 200) {
+
+    // Step 5: Access the server response
+
+    console.log("Raw response from server:", xhr.responseText);
+
+    // Optional: If the response is JSON, parse it into a JavaScript object
+    let data = JSON.parse(xhr.responseText);
+    console.log("Parsed JavaScript object:", data);
+  }
+};
+
+// Step 6: Send the request to the server
+
+// For GET requests, no data is sent in the body, so we pass null or nothing
+
+xhr.send();
+
+---------------------------------------------------------------------------------------
+| State              | Value | When It Happens                                        |
+| ------------------ | ----- | ------------------------------------------------------ |
+| `UNSENT`           | `0`   | Immediately after creating the `XMLHttpRequest` object |
+| `OPENED`           | `1`   | After calling `open()`                                 |
+| `HEADERS_RECEIVED` | `2`   | After calling `send()` and receiving response headers  |
+| `LOADING`          | `3`   | While receiving the body of the response               |
+| `DONE`             | `4`   | After the full response has been received              |
+---------------------------------------------------------------------------------------
+

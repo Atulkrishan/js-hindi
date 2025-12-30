@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advanced Js</title>
+  </head>
+  <body></body>
+  <script>
+    const xhr = new XMLHttpRequest();
+    const requrl = "https://randomuser.me/api/";
+    console.log(xhr.readyState);
+    xhr.open("GET", requrl);
+    console.log(xhr.readyState);
+    xhr.send();
+    console.log(xhr.readyState);
+
+    xhr.onreadystatechange = function () {
+      console.log(xhr.readyState);
+
+      if (xhr.readyState === 4) {
+        const dataval = JSON.parse(this.responseText);
+        console.log(dataval);
+        // most of the time the response we get from server is in string
+        //         {results: Array(1), info: {…}}
+        // info : {seed: '5d9125bc00881abf', results: 1, page: 1, version: '1.4'}       results : [{…}]
+        // [[Prototype]] : Object
+        console.log(dataval.results[0].gender);
+      }
+    };
+  </script>
+</html>
